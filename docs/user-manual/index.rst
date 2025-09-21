@@ -7,17 +7,17 @@ LwBTN is simple button manager library, with great focus on embedded systems.
 Motivation behind start of development was linked to several on-going projects including some input reading (button handling),
 each of them demanding little differences in process.
 
-LwBTN is therefore relatively simple and lightweight, yet it can provide pretty comprehensive processing of your application buttons.
+LwBTN is therefore relatively simple and lightweight, yet it can provide comprehensive processing of your application buttons.
 
 How it works
 ^^^^^^^^^^^^
 
-User must define buttons array and pass it to the library. Next to that, ``2`` more functions are required:
+User shall define buttons array and pass it to the library. Next to that, ``2`` more functions are required at application level:
 
 * Function to read the architecture button state
-* Function to receive various button events
+* Function to receive various button events from the library to the application
 
-User shall later periodically call processing function with current system time as simple parameter and get ready to receive various events.
+User shall periodically call processing function with current system time as simple parameter and get ready to receive various events.
 
 A simple example for win32 is below:
 
@@ -43,7 +43,7 @@ The input reading function is required to provide the actual state of the input 
 Input events
 ^^^^^^^^^^^^
 
-During button (or input if you will) lifetime, application can expect some of these events (but not limited to):
+During the button (or input) lifetime, application shall anticipate to receive some of the below listed events (but not limited to, new may be added in the future):
 
 * :c:enum:`LWBTN_EVT_ONPRESS` event is sent to application whenever input goes from inactive to active state and minimum debounce time passes by
 * :c:enum:`LWBTN_EVT_ONRELEASE` event is sent to application whenever input sent **onpress** event prior to that and when input goes from active to inactive state
@@ -54,9 +54,9 @@ On-Press event
 ^^^^^^^^^^^^^^
 
 Onpress event is the first in a row when input is detected active.
-With nature of embedded systems and various buttons connected to devices, it is necessary to filter out potential noise to ignore unintential multiple presses.
-This is done by checking line to be at stable level for at least some minimum time, normally called *debounce time*, usually it takes around ``20ms``.
-See :c:macro:`LWBTN_CFG_TIME_DEBOUNCE_PRESS` configuration option to set debounce time.
+With the nature of embedded systems and various buttons connected to devices, it is necessary to filter out potential noise to ignore unintential multiple presses.
+This is done by checking line to be at the stable level for at least some minimum time, normally called *debounce time*. Usually it takes around ``20ms``.
+See the :c:macro:`LWBTN_CFG_TIME_DEBOUNCE_PRESS` configuration option to set debounce time.
 
 .. figure:: ../static/images/btn-events-press.svg
     :align: center
